@@ -1,9 +1,11 @@
 package com.example.alejandro.practica3pmdminmobiliaria;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,7 +23,8 @@ public class AdaptadorArrayList extends ArrayAdapter<Inmueble>{
 
 
     public static class ViewHolder{
-        public TextView tvCalle,tvPrecio,tvTipo;
+        public TextView tvCalle,tvPrecio,tvTipo,tvLocalidad;
+        public ImageView iv;
         public int posicion;
     }
 
@@ -50,6 +53,8 @@ public class AdaptadorArrayList extends ArrayAdapter<Inmueble>{
             vh.tvCalle=(TextView)convertView.findViewById(R.id.tvDireccion);
             vh.tvPrecio=(TextView)convertView.findViewById(R.id.tvPrecio);
             vh.tvTipo=(TextView)convertView.findViewById(R.id.tvTipo);
+            vh.tvLocalidad=(TextView)convertView.findViewById(R.id.tvLocalidad);
+            vh.iv = (ImageView)convertView.findViewById(R.id.ivFoto);
             convertView.setTag(vh);
 
         }else{
@@ -60,6 +65,22 @@ public class AdaptadorArrayList extends ArrayAdapter<Inmueble>{
         vh.tvCalle.setText(lista.get(position).getDireccion());
         vh.tvPrecio.setText(lista.get(position).getPrecio()+"");
         vh.tvTipo.setText(lista.get(position).getTipo()+"");
+        vh.tvLocalidad.setText(lista.get(position).getLocalidad() + "");
+
+
+        Inmueble a = lista.get(position);
+
+        if(a.getTipo().toString().equals("Casa")){
+            Log.v("casa","casa");
+            vh.iv.setImageResource(R.drawable.casa);
+        } else if(a.getTipo().toString().equals("Piso")){
+
+            Log.v("Piso","Piso");
+            vh.iv.setImageResource(R.drawable.piso);
+        }else if(a.getTipo().toString().equals("Cochera")){
+            Log.v("Cochera","Cochera");
+            vh.iv.setImageResource(R.drawable.cochera);
+        }
 
         return convertView;
     }

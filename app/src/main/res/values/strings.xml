@@ -16,7 +16,6 @@
     <string name="m_anadir">Añadir</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anadir">Anadir</string>
-
     <string name="mensaje_eliminar">Se ha eliminado correctamente.</string>
     <string name="mensaje_editar">Se ha editado correctamente.</string>
     <string name="mensaje_anadir">Se ha añadido correctamente.</string>
@@ -25,9 +24,15 @@
     <string name="vacio">Algun/os campos vacíos</string>
     <string name="tituloBorrar">¿Seguro que desea borrarlo?</string>
     <string name="btAnadir">Añadir</string>
+    <string name="btAnterior">Anterior</string>
+    <string name="btSiguiente">Siguiente</string>
+
     <string-array name="tipoInmueble">
         <item>Piso</item>
         <item>Casa</item>
+        <item>Cochera</item>
     </string-array>
+
+    <string name="title_activity_fotos">Fotos</string>
 
 </resources>

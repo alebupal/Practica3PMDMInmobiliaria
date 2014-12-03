@@ -48,4 +48,13 @@
         android:layout_toRightOf="@+id/ivFoto"
         android:layout_toEndOf="@+id/ivFoto" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localidad"
+        android:id="@+id/tvLocalidad"
+        android:layout_below="@+id/tvTipo"
+        android:layout_toRightOf="@+id/ivFoto"
+        android:layout_toEndOf="@+id/ivFoto" />
+
 </RelativeLayout>

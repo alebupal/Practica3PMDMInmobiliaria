@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
     private AdaptadorArrayList ad;
     private final int ANADIR = 0;
     private String tipoNuevo;
+    private final int ACTIVIDAD_FOTOS = 2;
 
 
     @Override
@@ -37,6 +40,36 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
+
+        final ListView ls = (ListView) findViewById(R.id.listView);
+        ad = new AdaptadorArrayList(this, R.layout.lista_detalle, datos);
+        ls.setAdapter(ad);
+        registerForContextMenu(ls);
+
+        final FragmentoFotos fFotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
+        final boolean horizontal = fFotos!=null && fFotos.isInLayout(); //Saber que orientación tengo
+        int v = getResources().getConfiguration().orientation; //Saber que orientación tengo{
+        switch (v){
+            case Configuration.ORIENTATION_LANDSCAPE:
+                break;
+            case Configuration.ORIENTATION_PORTRAIT:
+                break;
+        }
+        ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Inmueble in = (Inmueble)ls.getItemAtPosition(position);
+                Toast.makeText(MainActivity.this,"Eres "+in.getDireccion(),Toast.LENGTH_SHORT).show();
+                if(horizontal){
+                    fFotos.setTexto("Eres "+in.getDireccion());
+                }else{
+                    Intent i = new Intent(MainActivity.this,Fotos.class);
+                    i.putExtra("eres","Eres "+in.getDireccion());
+                    startActivityForResult(i,ACTIVIDAD_FOTOS);
+                }
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

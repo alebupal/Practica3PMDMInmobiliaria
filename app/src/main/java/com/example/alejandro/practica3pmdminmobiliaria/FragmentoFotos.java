@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class FragmentoFotos extends Fragment {
@@ -23,4 +24,11 @@ public class FragmentoFotos extends Fragment {
         v = inflater.inflate(R.layout.fragment_fragmento_fotos, container, false);
         return v;
     }
+
+    public void setTexto(String s){
+        TextView tv = (TextView)v.findViewById(R.id.tvFragmentoFotos);
+        tv.setText(s);
+    }
+
+
 }

@@ -14,11 +14,10 @@
         android:layout_weight="1" />
 
     <fragment
-        android:layout_width="wrap_content"
+        android:layout_width="339dp"
         android:layout_height="match_parent"
         android:name="com.example.alejandro.practica3pmdminmobiliaria.FragmentoFotos"
         android:id="@+id/fragmentoFotos"
         android:layout_gravity="center_vertical"
-        tools:layout="@layout/fragment_fragmento_fotos"
-        android:layout_weight="2" />
+        tools:layout="@layout/fragment_fragmento_fotos" />
 </LinearLayout>

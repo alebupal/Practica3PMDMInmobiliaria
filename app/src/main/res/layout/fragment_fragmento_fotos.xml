@@ -4,7 +4,32 @@
     tools:context="com.example.alejandro.practica3pmdminmobiliaria.FragmentoFotos">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <ImageView
+        android:layout_width="133dp"
+        android:layout_height="133dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/ic_launcher" />
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btSiguiente"
+        android:id="@+id/btSiguiente"
+        android:layout_gravity="right|bottom" />
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btAnterior"
+        android:id="@+id/btAnterior"
+        android:layout_gravity="left|bottom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvFragmentoFotos"
+        android:layout_gravity="center" />
 </FrameLayout>
