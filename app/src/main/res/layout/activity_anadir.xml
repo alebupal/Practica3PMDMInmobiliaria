@@ -58,7 +58,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btAnadir"
+        android:text="@string/btAnadirInmueble"
         android:id="@+id/btAnadir"
         android:layout_gravity="center_horizontal"
         android:onClick="AnadirBoton" />

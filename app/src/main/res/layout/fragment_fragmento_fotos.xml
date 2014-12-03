@@ -13,18 +13,20 @@
         android:src="@drawable/ic_launcher" />
 
     <Button
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btSiguiente"
         android:id="@+id/btSiguiente"
-        android:layout_gravity="right|bottom" />
+        android:layout_gravity="right|bottom"
+        android:onClick="siguiente" />
 
     <Button
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btAnterior"
         android:id="@+id/btAnterior"
-        android:layout_gravity="left|bottom" />
+        android:layout_gravity="left|bottom"
+        android:onClick="anterior" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,4 +34,5 @@
         android:text="New Text"
         android:id="@+id/tvFragmentoFotos"
         android:layout_gravity="center" />
+
 </FrameLayout>

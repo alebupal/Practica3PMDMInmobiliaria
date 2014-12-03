@@ -13,7 +13,8 @@
     <string name="m_genero">Ordenar por género</string>
     <string name="m_editar">Editar</string>
     <string name="m_borrar">Borrar</string>
-    <string name="m_anadir">Añadir</string>
+    <string name="m_anadir">Añadir Inmueble</string>
+    <string name="m_foto">Añadir Foto</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anadir">Anadir</string>
     <string name="mensaje_eliminar">Se ha eliminado correctamente.</string>
@@ -23,9 +24,10 @@
     <string name="duplicado">Inmueble duplicada</string>
     <string name="vacio">Algun/os campos vacíos</string>
     <string name="tituloBorrar">¿Seguro que desea borrarlo?</string>
-    <string name="btAnadir">Añadir</string>
-    <string name="btAnterior">Anterior</string>
-    <string name="btSiguiente">Siguiente</string>
+    <string name="anadirFoto">Añadir Foto</string>
+    <string name="btAnadirInmueble">Añadir inmueble</string>
+    <string name="btAnterior">&lt;&lt;</string>
+    <string name="btSiguiente">&gt;&gt;</string>
 
     <string-array name="tipoInmueble">
         <item>Piso</item>

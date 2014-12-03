@@ -71,14 +71,10 @@ public class AdaptadorArrayList extends ArrayAdapter<Inmueble>{
         Inmueble a = lista.get(position);
 
         if(a.getTipo().toString().equals("Casa")){
-            Log.v("casa","casa");
             vh.iv.setImageResource(R.drawable.casa);
         } else if(a.getTipo().toString().equals("Piso")){
-
-            Log.v("Piso","Piso");
             vh.iv.setImageResource(R.drawable.piso);
         }else if(a.getTipo().toString().equals("Cochera")){
-            Log.v("Cochera","Cochera");
             vh.iv.setImageResource(R.drawable.cochera);
         }
 

@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -16,11 +18,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -33,6 +35,9 @@ public class MainActivity extends Activity {
     private final int ANADIR = 0;
     private String tipoNuevo;
     private final int ACTIVIDAD_FOTOS = 2;
+    private ArrayList<Bitmap> arrayFotos;
+    private int posicion=0;
+    private boolean selector=false;
 
 
     @Override
@@ -59,13 +64,19 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Inmueble in = (Inmueble)ls.getItemAtPosition(position);
-                Toast.makeText(MainActivity.this,"Eres "+in.getDireccion(),Toast.LENGTH_SHORT).show();
+
+                view.setSelected(true);
+
+                Toast.makeText(MainActivity.this,"id "+in.getId(),Toast.LENGTH_SHORT).show();
                 if(horizontal){
-                    fFotos.setTexto("Eres "+in.getDireccion());
+                    fFotos.setTexto("id "+in.getId());
+                    File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
+                    arrayFotos=fFotos.insertarFotos(arrayFotos,position,datos,carpetaFotos);
+                    fFotos.primeraFoto(arrayFotos,0);
                 }else{
                     Intent i = new Intent(MainActivity.this,Fotos.class);
-                    i.putExtra("eres","Eres "+in.getDireccion());
-                    startActivityForResult(i,ACTIVIDAD_FOTOS);
+                    i.putExtra("id",in.getId());
+                    startActivityForResult(i, ACTIVIDAD_FOTOS);
                 }
             }
         });
@@ -232,7 +243,6 @@ public class MainActivity extends Activity {
         etEditarPrecio.setText(precio+"");
         etEditarLocalidad.setText(localidad);
         etEditarDireccion.setText(direccion);
-        Log.v("tipo",tipo);
         if (tipo.equals("Piso")) {
             etEditarTipo.setSelection(0);
         } else if (tipo.equals("Casa")) {
@@ -304,6 +314,53 @@ public class MainActivity extends Activity {
         XML cxml = new XML();
         cxml.modificar(getApplicationContext(), datos, inmuebleNuevo, inmuebleAntiguo);
     }
+    public void siguiente(View v){
+        final FragmentoFotos fFotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
+        posicion++;
+        Log.v("siguiente","boton");
+        if(arrayFotos.size()==0){
+
+        }else {
+        if (posicion>arrayFotos.size()-1){
+            posicion=arrayFotos.size()-1;
+            Log.v("posicion1",posicion+"");
+            Log.v("tamaño1",arrayFotos.size()+"");
+            fFotos.fotoSiguiente(arrayFotos,posicion);
+        }else{
+            Log.v("posicion2",posicion+"");
+            Log.v("tamaño2",arrayFotos.size()+"");
+            fFotos.fotoSiguiente(arrayFotos,posicion);
+        }}
+    }
+    public void anterior(View v){
+        final FragmentoFotos ffotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
+        posicion--;
+        Log.v("boton","anterior");
+        if(arrayFotos.size()==0){
+
+        }else {
+        if (posicion<0){
+            posicion=0;
+            Log.v("posicion1",posicion+"");
+            Log.v("tamaño1",arrayFotos.size()+"");
+            ffotos.fotoSiguiente(arrayFotos,posicion);
+        }else{
+            Log.v("posicion2",posicion+"");
+            Log.v("tamaño2",arrayFotos.size()+"");
+            ffotos.fotoSiguiente(arrayFotos,posicion);
+        }}
+    }
+    public void btAnadir(View v){
+        anadir();
+    }
+    public void btBorrar(View v){
+        //borrar();
+    }
+
+    public void hacerfoto(){
+
+    }
+
 
 
 
