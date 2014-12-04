@@ -17,14 +17,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class MainActivity extends Activity {
@@ -35,9 +42,11 @@ public class MainActivity extends Activity {
     private final int ANADIR = 0;
     private String tipoNuevo;
     private final int ACTIVIDAD_FOTOS = 2;
+    private int HACER_FOTO=1;
     private ArrayList<Bitmap> arrayFotos;
     private int posicion=0;
-    private boolean selector=false;
+    private int idFoto;
+    private Button btAnterior,btSiguiente,btBorrar;
 
 
     @Override
@@ -50,6 +59,11 @@ public class MainActivity extends Activity {
         ad = new AdaptadorArrayList(this, R.layout.lista_detalle, datos);
         ls.setAdapter(ad);
         registerForContextMenu(ls);
+
+
+        btSiguiente = (Button)findViewById(R.id.btSiguiente);
+        btAnterior = (Button)findViewById(R.id.btAnterior);
+        btBorrar = (Button)findViewById(R.id.btBorrar);
 
         final FragmentoFotos fFotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
         final boolean horizontal = fFotos!=null && fFotos.isInLayout(); //Saber que orientación tengo
@@ -64,12 +78,12 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Inmueble in = (Inmueble)ls.getItemAtPosition(position);
-
                 view.setSelected(true);
-
-                Toast.makeText(MainActivity.this,"id "+in.getId(),Toast.LENGTH_SHORT).show();
                 if(horizontal){
-                    fFotos.setTexto("id "+in.getId());
+                    btSiguiente.setEnabled(true);
+                    btAnterior.setEnabled(true);
+                    btBorrar.setEnabled(true);
+                    idFoto=in.getId();
                     File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
                     arrayFotos=fFotos.insertarFotos(arrayFotos,position,datos,carpetaFotos);
                     fFotos.primeraFoto(arrayFotos,0);
@@ -142,6 +156,22 @@ public class MainActivity extends Activity {
             visualizarInmuebles();
             ad.notifyDataSetChanged();
             tostada(getString(R.string.mensaje_anadir));
+        }else if (resultCode == RESULT_OK && requestCode == HACER_FOTO) {
+
+            Bitmap foto = (Bitmap)data.getExtras().get("data");
+            FileOutputStream salida;
+            String nombrefoto;
+            try {
+                String[] fecha=getFecha().split("-");
+                nombrefoto="inmueble_"+idFoto+"_"+fecha[0]+"_"+fecha[1]+"_"+fecha[2]+"_"+fecha[3]+"_"+fecha[4]+"_"+fecha[5];
+                salida = new FileOutputStream(getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/"+nombrefoto+".jpg");
+                Log.v("salida",salida+"");
+                foto.compress(Bitmap.CompressFormat.JPEG, 90, salida);
+            } catch (FileNotFoundException e) {
+            }
+
+
+
         }
     }
 
@@ -166,14 +196,7 @@ public class MainActivity extends Activity {
         ls.setAdapter(ad);
         registerForContextMenu(ls);
     }
-    /*public boolean comprueba(String titulo) {
-        for (int i = 0; i < datos.size(); i++) {
-            if (datos.get(i).getTitulo().equalsIgnoreCase(titulo) == true) {
-                return false;
-            }
-        }
-        return true;
-    }*/
+
 
     /****************************************************/
     /*                                                  */
@@ -197,6 +220,7 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 borrarXML(pos);
                 Collections.sort(datos);
+
                 tostada(getString(R.string.mensaje_eliminar));
                 visualizarInmuebles();
             }
@@ -304,6 +328,10 @@ public class MainActivity extends Activity {
         direccion = datos.get(pos).getDireccion();
         tipo = datos.get(pos).getTipo();
 
+        eliminarFotoPorID(id);
+
+
+
         Inmueble inmu = new Inmueble(id, precio, localidad,direccion,tipo);
 
         XML xml = new XML();
@@ -350,20 +378,63 @@ public class MainActivity extends Activity {
             ffotos.fotoSiguiente(arrayFotos,posicion);
         }}
     }
-    public void btAnadir(View v){
-        anadir();
-    }
-    public void btBorrar(View v){
-        //borrar();
-    }
+    public void hacerFoto(View v){
 
-    public void hacerfoto(){
-
+        Intent i = new Intent ("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(i, HACER_FOTO);
+        File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
     }
 
+    private String getFecha(){
+        Calendar cal = new GregorianCalendar();
+        Date date = cal.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+        String formatteDate = df.format(date);
+        return formatteDate;
+    }
 
+    public boolean eliminarFoto(View v){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.tituloBorrarFoto));
+        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                int cont=0;
+                File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
+                String[] archivosCarpetaFotos = carpetaFotos.list();
+                for (int i=0;i<archivosCarpetaFotos.length;i++){
+                    if (archivosCarpetaFotos[i].indexOf("inmueble_"+idFoto) != -1){
+                        if (cont==posicion) {
+                            File archivoaBorrar = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)), archivosCarpetaFotos[i]);
+                           // Log.v("archivoborrado",""+archivoaBorrar);
+                           // Log.v("archivo",""+archivosCarpetaFotos[i]);
+                            //Log.v("posicion",""+posicion);
+                            archivoaBorrar.delete();
+                        }
+                        cont++;
+                    }
+                }
+            }
+        });
+        alert.setNegativeButton(android.R.string.no, null);
+        alert.show();
+        return true;
+    }
 
+    public void eliminarFotoPorID(final int id){
+        int cont=0;
+        File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
+        String[] archivosCarpetaFotos = carpetaFotos.list();
+        for (int i=0;i<archivosCarpetaFotos.length;i++){
+            if (archivosCarpetaFotos[i].indexOf("inmueble_"+id) != -1){
+                    File archivoaBorrar = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)), archivosCarpetaFotos[i]);
+                    // Log.v("archivoborrado",""+archivoaBorrar);
+                    // Log.v("archivo",""+archivosCarpetaFotos[i]);
+                    //Log.v("posicion",""+posicion);
+                    archivoaBorrar.delete();
 
+            }
+        }
 
+    }
 
 }

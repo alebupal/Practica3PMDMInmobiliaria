@@ -24,6 +24,7 @@
     <string name="duplicado">Inmueble duplicada</string>
     <string name="vacio">Algun/os campos vacíos</string>
     <string name="tituloBorrar">¿Seguro que desea borrarlo?</string>
+    <string name="tituloBorrarFoto">¿Seguro que desea borrarla foto?</string>
     <string name="anadirFoto">Añadir Foto</string>
     <string name="btAnadirInmueble">Añadir inmueble</string>
     <string name="btAnterior">&lt;&lt;</string>

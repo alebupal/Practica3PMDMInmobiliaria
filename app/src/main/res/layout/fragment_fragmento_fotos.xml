@@ -1,38 +1,65 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.alejandro.practica3pmdminmobiliaria.FragmentoFotos">
+    tools:context="com.example.alejandro.practica3pmdminmobiliaria.FragmentoFotos"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:layout_width="133dp"
-        android:layout_height="133dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btSiguiente"
-        android:id="@+id/btSiguiente"
-        android:layout_gravity="right|bottom"
-        android:onClick="siguiente" />
+        android:gravity="center"
+        android:layout_weight="0.5">
 
-    <Button
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="241dp"
+            android:layout_height="241dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/seleccion" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btAnterior"
-        android:id="@+id/btAnterior"
-        android:layout_gravity="left|bottom"
-        android:onClick="anterior" />
+        android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvFragmentoFotos"
-        android:layout_gravity="center" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btAnterior"
+            android:id="@+id/btAnterior"
+            android:layout_gravity="left|bottom"
+            android:onClick="anterior"
+            android:enabled="false" />
 
-</FrameLayout>
+        <Button
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="hacerFoto"
+            android:enabled="true"
+            android:background="@android:drawable/ic_menu_camera" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btBorrar"
+            android:onClick="eliminarFoto"
+            android:enabled="false"
+            android:text="Eliminar" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btSiguiente"
+            android:id="@+id/btSiguiente"
+            android:layout_gravity="right|bottom"
+            android:onClick="siguiente"
+            android:enabled="false" />
+    </LinearLayout>
+
+</LinearLayout>

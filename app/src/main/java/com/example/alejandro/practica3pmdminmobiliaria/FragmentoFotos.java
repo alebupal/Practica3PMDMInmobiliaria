@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,16 +38,11 @@ public class FragmentoFotos extends Fragment {
         return v;
     }
 
-    public void setTexto(String s){
-        TextView tv = (TextView)v.findViewById(R.id.tvFragmentoFotos);
-        tv.setText(s);
-    }
-
     public void primeraFoto(ArrayList<Bitmap> arrayFotos,int pos){
 
         ImageView iv = (ImageView)v.findViewById(R.id.imageView);
         if(arrayFotos.size()==0){
-            Drawable myDrawable = getResources().getDrawable(R.drawable.ic_launcher);
+            Drawable myDrawable = getResources().getDrawable(R.drawable.foto);
             iv.setImageDrawable(myDrawable);
         }else{
         iv.setImageBitmap(arrayFotos.get(pos));
@@ -62,9 +58,9 @@ public class FragmentoFotos extends Fragment {
     }
 
 
-    public ArrayList<Bitmap> insertarFotos(ArrayList<Bitmap> arrayFotos,int posicion,ArrayList<Inmueble> datos,File cacarpetaFotos){
+    public ArrayList<Bitmap> insertarFotos(ArrayList<Bitmap> arrayFotos,int posicion,ArrayList<Inmueble> datos,File cfotos){
 
-        File carpetaFotos = cacarpetaFotos;
+        File carpetaFotos = cfotos;
         String[] archivosCarpetaFotos = carpetaFotos.list();
         arrayFotos=new ArrayList<Bitmap>();
 
@@ -73,17 +69,14 @@ public class FragmentoFotos extends Fragment {
         Bitmap bm;
         for (int i=0;i<archivosCarpetaFotos.length;i++){
             if (archivosCarpetaFotos[i].indexOf("inmueble_"+id) != -1){
+               // Log.v("archivo",archivosCarpetaFotos[i]);
                 bm = BitmapFactory.decodeFile(carpetaFotos.getAbsolutePath() + "/" + archivosCarpetaFotos[i]);
-                Log.v("bir",""+bm);
+                //Log.v("bir",""+bm);
                 arrayFotos.add(bm);
             }
         }
         return arrayFotos;
     }
-
-
-
-
 
 
 }

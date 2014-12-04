@@ -1,6 +1,8 @@
 package com.example.alejandro.practica3pmdminmobiliaria;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,6 +21,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,60 +35,85 @@ public class Fotos extends Activity {
     private ArrayList<Bitmap> arrayFotos;
     String nombrefoto;
 
+    private Button btAnterior,btSiguiente,btBorrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fotos);
+
+
+        btSiguiente = (Button)findViewById(R.id.btSiguiente);
+        btAnterior = (Button)findViewById(R.id.btAnterior);
+        btBorrar = (Button)findViewById(R.id.btBorrar);
+
+        btSiguiente.setEnabled(true);
+        btAnterior.setEnabled(true);
+        btBorrar.setEnabled(true);
 
         id = getIntent().getExtras().getInt("id");
         Log.v("id", id+"");
         final FragmentoFotos ffotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
         arrayFotos=new ArrayList<Bitmap>();
         arrayFotos=insertarFotos(arrayFotos);
-        ffotos.setTexto(id+"");
         ffotos.primeraFoto(arrayFotos, 0);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_fotos, menu);
-        return true;
-    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("id",id);
-        finish();
+        //finish(); no funcionan fotos
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        //s=savedInstanceState.getString("eres");
         id=savedInstanceState.getInt("id");
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.anadirFoto) {
-            foto();
-        }
 
-        return super.onOptionsItemSelected(item);
+
+    public boolean eliminarFoto(View v){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.tituloBorrarFoto));
+        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                int cont=0;
+                File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
+                String[] archivosCarpetaFotos = carpetaFotos.list();
+                for (int i=0;i<archivosCarpetaFotos.length;i++){
+                    if (archivosCarpetaFotos[i].indexOf("inmueble_"+id) != -1){
+                        if (cont==posicion) {
+                            File archivoaBorrar = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)), archivosCarpetaFotos[i]);
+                            // Log.v("archivoborrado",""+archivoaBorrar);
+                            // Log.v("archivo",""+archivosCarpetaFotos[i]);
+                            //Log.v("posicion",""+posicion);
+                            archivoaBorrar.delete();
+                        }
+                        cont++;
+                    }
+                }
+            }
+        });
+        alert.setNegativeButton(android.R.string.no, null);
+        alert.show();
+        return true;
     }
 
-    public void foto(){
+
+    public void hacerFoto(View v){
+
         Intent i = new Intent ("android.media.action.IMAGE_CAPTURE");
         startActivityForResult(i, IDACTIVIDADFOTO);
+
     }
+
+
 
     @Override
     public void onActivityResult(int pet, int res, Intent i) {
@@ -96,6 +126,7 @@ public class Fotos extends Activity {
                 salida = new FileOutputStream(getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/"+nombrefoto+".jpg");
                 foto.compress(Bitmap.CompressFormat.JPEG, 90, salida);
             } catch (FileNotFoundException e) {
+
             }
         }
     }
@@ -128,7 +159,6 @@ public class Fotos extends Activity {
         final FragmentoFotos ffotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
         arrayFotos=new ArrayList<Bitmap>();
         arrayFotos=insertarFotos(arrayFotos);
-        ffotos.setTexto(id+"");
         posicion++;
         Log.v("siguiente","boton");
         if(arrayFotos.size()==0){
@@ -151,7 +181,6 @@ public class Fotos extends Activity {
        final FragmentoFotos ffotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
        arrayFotos=new ArrayList<Bitmap>();
        arrayFotos=insertarFotos(arrayFotos);
-       ffotos.setTexto(id+"");
        posicion--;
        Log.v("boton","anterior");
        if(arrayFotos.size()==0){
