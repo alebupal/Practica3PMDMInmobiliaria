@@ -75,8 +75,6 @@ public class Fotos extends Activity {
     }
 
 
-
-
     public boolean eliminarFoto(View v){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
