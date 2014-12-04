@@ -48,11 +48,7 @@ public class FragmentoFotos extends Fragment {
         iv.setImageBitmap(arrayFotos.get(pos));
         }
     }
-    public void fotoSiguiente(ArrayList<Bitmap> arrayFotos,int pos){
-            ImageView iv = (ImageView)v.findViewById(R.id.imageView);
-            iv.setImageBitmap(arrayFotos.get(pos));
-    }
-    public void fotoAnterior(ArrayList<Bitmap> arrayFotos,int pos){
+    public void avanzarFoto(ArrayList<Bitmap> arrayFotos,int pos){
             ImageView iv = (ImageView)v.findViewById(R.id.imageView);
             iv.setImageBitmap(arrayFotos.get(pos));
     }

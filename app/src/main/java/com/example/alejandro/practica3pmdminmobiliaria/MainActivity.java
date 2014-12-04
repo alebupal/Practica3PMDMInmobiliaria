@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -343,11 +342,11 @@ public class MainActivity extends Activity {
             posicion=arrayFotos.size()-1;
             Log.v("posicion1",posicion+"");
             Log.v("tamaño1",arrayFotos.size()+"");
-            fFotos.fotoSiguiente(arrayFotos,posicion);
+            fFotos.avanzarFoto(arrayFotos,posicion);
         }else{
             Log.v("posicion2",posicion+"");
             Log.v("tamaño2",arrayFotos.size()+"");
-            fFotos.fotoSiguiente(arrayFotos,posicion);
+            fFotos.avanzarFoto(arrayFotos,posicion);
         }}
     }
     public void anterior(View v){
@@ -361,11 +360,11 @@ public class MainActivity extends Activity {
             posicion=0;
             Log.v("posicion1",posicion+"");
             Log.v("tamaño1",arrayFotos.size()+"");
-            ffotos.fotoSiguiente(arrayFotos,posicion);
+            ffotos.avanzarFoto(arrayFotos,posicion);
         }else{
             Log.v("posicion2",posicion+"");
             Log.v("tamaño2",arrayFotos.size()+"");
-            ffotos.fotoSiguiente(arrayFotos,posicion);
+            ffotos.avanzarFoto(arrayFotos,posicion);
         }}
     }
     public void hacerFoto(View v){
