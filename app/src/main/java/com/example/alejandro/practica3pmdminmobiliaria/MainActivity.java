@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -67,13 +68,7 @@ public class MainActivity extends Activity {
 
         final FragmentoFotos fFotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
         final boolean horizontal = fFotos!=null && fFotos.isInLayout(); //Saber que orientación tengo
-        int v = getResources().getConfiguration().orientation; //Saber que orientación tengo{
-        switch (v){
-            case Configuration.ORIENTATION_LANDSCAPE:
-                break;
-            case Configuration.ORIENTATION_PORTRAIT:
-                break;
-        }
+
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,12 +102,10 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_anadir) {
             anadir();
-        } else if (id == R.id.action_fecha) {
-            //ordenarFecha();
-        } else if (id == R.id.action_genero) {
-           // ordenarGenero();
-        } else if (id == R.id.action_nombre) {
-           // ordernarNombre();
+        } else if (id == R.id.action_direccion) {
+            ordenarDireccion();
+        }else if (id == R.id.action_localidad) {
+           ordernarLocalidad();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -436,5 +429,32 @@ public class MainActivity extends Activity {
         }
 
     }
+
+    /****************************************************/
+    /*                                                  */
+    /*               metodos ordenar                    */
+    /*                                                  */
+    /****************************************************/
+
+    public void ordenarDireccion() {
+        Collections.sort(datos, new Comparator<Inmueble>() {
+            @Override
+            public int compare(Inmueble p1, Inmueble p2) {
+                return p1.getDireccion().compareTo(p2.getDireccion());
+            }
+        });
+        ad.notifyDataSetChanged();
+    }
+
+    public void ordernarLocalidad() {
+        Collections.sort(datos, new Comparator<Inmueble>() {
+            @Override
+            public int compare(Inmueble p1, Inmueble p2) {
+                return p1.getLocalidad().compareTo(p2.getLocalidad());
+            }
+        });
+        ad.notifyDataSetChanged();
+    }
+
 
 }

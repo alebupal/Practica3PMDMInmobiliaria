@@ -9,8 +9,8 @@
     <string name="etTipo">Tipo</string>
     <string name="etLocalidad">Localidad</string>
     <string name="m_nombre">Ordenar por nombre</string>
-    <string name="m_fecha">Ordenadar por fecha</string>
-    <string name="m_genero">Ordenar por género</string>
+    <string name="m_fecha">Ordenar por localidad</string>
+    <string name="m_direccion">Ordenar por género</string>
     <string name="m_editar">Editar</string>
     <string name="m_borrar">Borrar</string>
     <string name="m_anadir">Añadir Inmueble</string>

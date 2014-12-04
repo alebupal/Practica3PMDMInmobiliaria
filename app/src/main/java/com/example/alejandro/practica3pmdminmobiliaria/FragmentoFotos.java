@@ -58,11 +58,9 @@ public class FragmentoFotos extends Fragment {
     }
 
 
-    public ArrayList<Bitmap> insertarFotos(ArrayList<Bitmap> arrayFotos,int posicion,ArrayList<Inmueble> datos,File cfotos){
+    public ArrayList<Bitmap> insertarFotos(ArrayList<Bitmap> arrayFotos,int posicion,ArrayList<Inmueble> datos,File carpetaFotos){
 
-        File carpetaFotos = cfotos;
         String[] archivosCarpetaFotos = carpetaFotos.list();
-        arrayFotos=new ArrayList<Bitmap>();
 
         Inmueble in=datos.get(posicion);
         String id=""+in.getId();
