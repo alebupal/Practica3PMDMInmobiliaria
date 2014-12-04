@@ -50,7 +50,6 @@ public class XML {
             if(lista.get(i).equals(in)){
                 lista.remove(i);
                 crear(con, lista);
-                Collections.sort(lista);
                 break;
             }
         }
@@ -63,7 +62,6 @@ public class XML {
                 lista.remove(i);
                 lista.add(inmuebleNuevo);
                 crear(con, lista);
-                Collections.sort(lista);
                 break;
             }
         }

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Alejandro on 02/12/2014.
  */
-public class Inmueble implements Comparable<Inmueble>,Parcelable {
+public class Inmueble implements Comparable<Inmueble>, Parcelable {
 
     private int id;
     private double precio;
@@ -103,10 +103,7 @@ public class Inmueble implements Comparable<Inmueble>,Parcelable {
                 '}';
     }
 
-    @Override
-    public int compareTo(Inmueble another) {
-        return this.getLocalidad().compareTo(another.getLocalidad());
-    }
+
 
     // ==================== Parcelable ====================
     public int describeContents() {
@@ -140,4 +137,8 @@ public class Inmueble implements Comparable<Inmueble>,Parcelable {
     };
 
 
+    @Override
+    public int compareTo(Inmueble another) {
+        return 0;
+    }
 }

@@ -102,10 +102,10 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_anadir) {
             anadir();
-        } else if (id == R.id.action_direccion) {
+        }else if (id == R.id.action_ordenarLocalidad) {
+            ordenarLocalidad();
+        }else if (id == R.id.action_ordenarDireccion) {
             ordenarDireccion();
-        }else if (id == R.id.action_localidad) {
-           ordernarLocalidad();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -212,8 +212,6 @@ public class MainActivity extends Activity {
         alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 borrarXML(pos);
-                Collections.sort(datos);
-
                 tostada(getString(R.string.mensaje_eliminar));
                 visualizarInmuebles();
             }
@@ -280,7 +278,6 @@ public class MainActivity extends Activity {
                 }else {
                     Inmueble inmuebleAntiguo = new Inmueble(id,precio,localidad,direccion,tipo);
                     Inmueble inmuebleNuevo = new Inmueble(id,Double.parseDouble(etEditarPrecio.getText().toString()), etEditarLocalidad.getText().toString(), etEditarDireccion.getText().toString(),tipoNuevo);
-                    Collections.sort(datos);
                     editarXML(inmuebleNuevo,inmuebleAntiguo);
                     ad.notifyDataSetChanged();
                     tostada(getString(R.string.mensaje_editar));
@@ -440,21 +437,19 @@ public class MainActivity extends Activity {
         Collections.sort(datos, new Comparator<Inmueble>() {
             @Override
             public int compare(Inmueble p1, Inmueble p2) {
-                return p1.getDireccion().compareTo(p2.getDireccion());
+                return p1.getDireccion().compareToIgnoreCase(p2.getDireccion());
             }
         });
         ad.notifyDataSetChanged();
     }
-
-    public void ordernarLocalidad() {
+    public void ordenarLocalidad() {
         Collections.sort(datos, new Comparator<Inmueble>() {
             @Override
             public int compare(Inmueble p1, Inmueble p2) {
-                return p1.getLocalidad().compareTo(p2.getLocalidad());
+                return p1.getLocalidad().compareToIgnoreCase(p2.getLocalidad());
             }
         });
         ad.notifyDataSetChanged();
     }
-
 
 }

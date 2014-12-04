@@ -5,12 +5,12 @@
         android:title="@string/m_anadir"
         android:orderInCategory="100"
         android:showAsAction="never" />
-    <item android:id="@+id/action_direccion"
-        android:title="@string/m_direccion"
+    <item android:id="@+id/action_ordenarLocalidad"
+        android:title="@string/m_ordenarLocalidad"
         android:orderInCategory="100"
         android:showAsAction="never" />
-    <item android:id="@+id/action_localidad"
-        android:title="@string/m_fecha"
+    <item android:id="@+id/action_ordenarDireccion"
+        android:title="@string/m_ordenarDireccion"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

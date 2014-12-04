@@ -8,13 +8,12 @@
     <string name="etPrecio">Precio</string>
     <string name="etTipo">Tipo</string>
     <string name="etLocalidad">Localidad</string>
-    <string name="m_nombre">Ordenar por nombre</string>
-    <string name="m_fecha">Ordenar por localidad</string>
-    <string name="m_direccion">Ordenar por género</string>
     <string name="m_editar">Editar</string>
     <string name="m_borrar">Borrar</string>
     <string name="m_anadir">Añadir Inmueble</string>
     <string name="m_foto">Añadir Foto</string>
+    <string name="m_ordenarLocalidad">Ordenar localidad</string>
+    <string name="m_ordenarDireccion">Ordenar direccion</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anadir">Anadir</string>
     <string name="mensaje_eliminar">Se ha eliminado correctamente.</string>
