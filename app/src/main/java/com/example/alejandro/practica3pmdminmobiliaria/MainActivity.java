@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
     private ArrayList<Bitmap> arrayFotos;
     private int posicion=0;
     private int idFoto;
-    private Button btAnterior,btSiguiente,btBorrar;
+    private Button btAnterior,btSiguiente,btBorrar,btAnadir;
 
 
     @Override
@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
         btSiguiente = (Button)findViewById(R.id.btSiguiente);
         btAnterior = (Button)findViewById(R.id.btAnterior);
         btBorrar = (Button)findViewById(R.id.btBorrar);
+        btAnadir = (Button)findViewById(R.id.btAnadir);
 
         final FragmentoFotos fFotos = (FragmentoFotos)getFragmentManager().findFragmentById(R.id.fragmentoFotos);
         final boolean horizontal = fFotos!=null && fFotos.isInLayout(); //Saber que orientación tengo
@@ -77,6 +78,7 @@ public class MainActivity extends Activity {
                     btSiguiente.setEnabled(true);
                     btAnterior.setEnabled(true);
                     btBorrar.setEnabled(true);
+                    btAnadir.setEnabled(true);
                     idFoto=in.getId();
                     File carpetaFotos  = new File(String.valueOf(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)));
                     arrayFotos=fFotos.insertarFotos(arrayFotos,position,datos,carpetaFotos);

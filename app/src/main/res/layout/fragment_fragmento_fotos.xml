@@ -24,7 +24,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:weightSum="1">
 
         <Button
             android:layout_width="wrap_content"
@@ -36,13 +37,13 @@
             android:enabled="false" />
 
         <Button
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/btAnadir"
             android:layout_gravity="center_horizontal|bottom"
             android:onClick="hacerFoto"
-            android:enabled="true"
-            android:background="@android:drawable/ic_menu_camera" />
+            android:enabled="false"
+            android:text="@string/anadirFoto" />
 
         <Button
             android:layout_width="wrap_content"

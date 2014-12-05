@@ -35,7 +35,7 @@ public class Fotos extends Activity {
     private ArrayList<Bitmap> arrayFotos;
     String nombrefoto;
 
-    private Button btAnterior,btSiguiente,btBorrar;
+    private Button btAnterior,btSiguiente,btBorrar,btAnadir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,12 @@ public class Fotos extends Activity {
         btSiguiente = (Button)findViewById(R.id.btSiguiente);
         btAnterior = (Button)findViewById(R.id.btAnterior);
         btBorrar = (Button)findViewById(R.id.btBorrar);
+        btAnadir = (Button)findViewById(R.id.btAnadir);
 
         btSiguiente.setEnabled(true);
         btAnterior.setEnabled(true);
         btBorrar.setEnabled(true);
+        btAnadir.setEnabled(true);
 
         id = getIntent().getExtras().getInt("id");
         Log.v("id", id+"");
@@ -58,22 +60,6 @@ public class Fotos extends Activity {
         arrayFotos=insertarFotos(arrayFotos);
         ffotos.primeraFoto(arrayFotos, 0);
     }
-
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("id",id);
-        //finish(); no funcionan fotos
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        id=savedInstanceState.getInt("id");
-    }
-
 
     public boolean eliminarFoto(View v){
 
@@ -166,11 +152,11 @@ public class Fotos extends Activity {
                 posicion = arrayFotos.size() - 1;
                 Log.v("posicion1", posicion + "");
                 Log.v("tamaño1", arrayFotos.size() + "");
-                ffotos.fotoSiguiente(arrayFotos, posicion);
+                ffotos.avanzarFoto(arrayFotos, posicion);
             } else {
                 Log.v("posicion2", posicion + "");
                 Log.v("tamaño2", arrayFotos.size() + "");
-                ffotos.fotoSiguiente(arrayFotos, posicion);
+                ffotos.avanzarFoto(arrayFotos, posicion);
             }
         }
     }
@@ -188,11 +174,11 @@ public class Fotos extends Activity {
                posicion = 0;
                Log.v("posicion1", posicion + "");
                Log.v("tamaño1", arrayFotos.size() + "");
-               ffotos.fotoSiguiente(arrayFotos, posicion);
+               ffotos.avanzarFoto(arrayFotos, posicion);
            } else {
                Log.v("posicion2", posicion + "");
                Log.v("tamaño2", arrayFotos.size() + "");
-               ffotos.fotoAnterior(arrayFotos, posicion);
+               ffotos.avanzarFoto(arrayFotos, posicion);
            }
        }
     }
